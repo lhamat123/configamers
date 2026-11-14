@@ -1,0 +1,771 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Guía Gamer PC</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* ═══ TOKENS ═══ */
+:root {
+  --bg:       #080810;
+  --bg2:      #0d0d1a;
+  --surface:  #111122;
+  --surface2: #161628;
+  --fg:       #e8e6ff;
+  --fg2:      #8b88bb;
+  --fg3:      #4a476a;
+  --cyan:     #00d4ff;
+  --cyan2:    #0099cc;
+  --orange:   #ff6b35;
+  --orange2:  #cc4f20;
+  --purple:   #9b6dff;
+  --green:    #00ff88;
+  --red:      #ff3366;
+  --amber:    #ffb020;
+  --border:   rgba(0,212,255,0.12);
+  --border2:  rgba(0,212,255,0.25);
+  --glow-c:   rgba(0,212,255,0.15);
+  --glow-o:   rgba(255,107,53,0.15);
+  --radius:   10px;
+  --font-d:   'Space Grotesk', system-ui, sans-serif;
+  --font-b:   'Inter', system-ui, sans-serif;
+  --font-m:   'JetBrains Mono', monospace;
+  color-scheme: dark;
+}
+
+/* ═══ RESET ═══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+
+/* ═══ BODY & BACKGROUND ═══ */
+body {
+  font-family: var(--font-b);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--fg);
+  background: var(--bg);
+  padding-left: max(16px, env(safe-area-inset-left,0px));
+  padding-right: max(16px, env(safe-area-inset-right,0px));
+  padding-block: 0 3rem;
+  overflow-x: hidden;
+}
+
+/* ── Animated grid background ── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+  animation: gridShift 20s linear infinite;
+}
+@keyframes gridShift {
+  0%   { background-position: 0 0, 0 0; }
+  100% { background-position: 40px 40px, 40px 40px; }
+}
+
+/* ── Ambient glow orbs ── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 10% 20%, rgba(0,212,255,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 300px at 90% 70%, rgba(255,107,53,0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 50% 90%, rgba(155,109,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: orbPulse 8s ease-in-out infinite alternate;
+}
+@keyframes orbPulse {
+  0%   { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Everything above z=0 */
+.header,.tool-nav,.tool-panel { position: relative; z-index: 1; }
+
+/* ═══ TYPOGRAPHY ═══ */
+h1,h2,h3,h4 { font-family: var(--font-d); line-height: 1.15; text-wrap: balance; }
+
+/* ═══ HEADER ═══ */
+.header {
+  padding: 2.5rem 0 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), var(--orange), transparent);
+  animation: borderFlow 4s ease-in-out infinite;
+}
+@keyframes borderFlow {
+  0%,100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+
+.header-top {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-m); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--cyan);
+  border: 1px solid var(--border2);
+  padding: 4px 12px; border-radius: 999px;
+  background: rgba(0,212,255,0.06);
+  animation: badgePulse 3s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(0,212,255,0); }
+  50%      { box-shadow: 0 0 12px 2px rgba(0,212,255,0.2); }
+}
+.badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cyan);
+  animation: dotBlink 1.5s ease-in-out infinite;
+}
+@keyframes dotBlink {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+
+.header h1 {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--orange) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleShimmer 6s ease-in-out infinite;
+}
+@keyframes titleShimmer {
+  0%,100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+.header h1 { background-size: 200% 200%; }
+
+.header-sub {
+  color: var(--fg2); font-size: 0.95rem;
+  margin-top: 0.5rem; max-width: 55ch;
+}
+
+/* ═══ TOOL NAV ═══ */
+.tool-nav {
+  display: flex; gap: 0.4rem; flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+  padding: 0.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+}
+.tool-btn {
+  font-family: var(--font-d); font-size: 0.8rem; font-weight: 600;
+  padding: 0.5rem 1rem; border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent; color: var(--fg3);
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; gap: 0.4rem;
+  letter-spacing: 0.02em; text-transform: uppercase; font-size: 0.72rem;
+  position: relative; overflow: hidden;
+}
+.tool-btn::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  opacity: 0; transition: opacity 0.2s;
+}
+.tool-btn:hover { color: var(--fg); border-color: var(--border2); }
+.tool-btn:hover::before { opacity: 0.08; }
+.tool-btn.active {
+  color: var(--bg);
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  border-color: transparent;
+  box-shadow: 0 0 20px rgba(0,212,255,0.3), 0 0 40px rgba(155,109,255,0.15);
+  animation: btnGlow 2s ease-in-out infinite;
+}
+@keyframes btnGlow {
+  0%,100% { box-shadow: 0 0 20px rgba(0,212,255,0.3), 0 0 40px rgba(155,109,255,0.15); }
+  50%      { box-shadow: 0 0 30px rgba(0,212,255,0.5), 0 0 60px rgba(155,109,255,0.25); }
+}
+.tool-btn.active::before { opacity: 0; }
+.btn-icon { font-size: 14px; }
+
+/* ═══ PANELS ═══ */
+.tool-panel { display: none; animation: panelIn 0.4s cubic-bezier(.4,0,.2,1); }
+.tool-panel.active { display: block; }
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══ SECTION EYEBROW ═══ */
+.eyebrow {
+  display: flex; align-items: center; gap: 0.75rem;
+  font-family: var(--font-m); font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cyan); margin-bottom: 0.6rem;
+}
+.eyebrow::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--border2), transparent);
+}
+
+/* ═══ TOOL HEADER ═══ */
+.tool-title {
+  font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 700;
+  letter-spacing: -0.02em; margin-bottom: 0.4rem;
+  color: var(--fg);
+}
+.tool-title span { color: var(--cyan); }
+.tool-desc { color: var(--fg2); font-size: 0.9rem; margin-bottom: 1.75rem; max-width: 60ch; }
+
+/* ═══ DOWNLOAD BTN ═══ */
+.dl-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-d); font-weight: 700; font-size: 0.8rem;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 0.65rem 1.5rem; border-radius: 8px;
+  text-decoration: none; border: none; cursor: pointer;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  color: #000;
+  position: relative; overflow: hidden;
+  transition: transform 0.2s;
+}
+.dl-btn::before {
+  content: "";
+  position: absolute; top: -50%; left: -60%;
+  width: 40%; height: 200%;
+  background: rgba(255,255,255,0.3);
+  transform: skewX(-20deg);
+  animation: btnShine 3s ease-in-out infinite;
+}
+@keyframes btnShine {
+  0%   { left: -60%; opacity: 0; }
+  20%  { opacity: 1; }
+  40%  { left: 120%; opacity: 0; }
+  100% { left: 120%; opacity: 0; }
+}
+.dl-btn:hover { transform: translateY(-2px); }
+.dl-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+/* ═══ STEPS ═══ */
+.steps { display: flex; flex-direction: column; gap: 2px; margin-bottom: 2rem; }
+.step {
+  display: grid; grid-template-columns: 3rem 1fr;
+  gap: 0 1rem; align-items: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.1rem 1.25rem;
+  border-radius: 0;
+  position: relative; overflow: hidden;
+  transition: border-color 0.2s, background 0.2s;
+}
+.step:hover {
+  border-color: var(--border2);
+  background: var(--surface2);
+}
+.step:hover .step-bar { width: 100%; }
+.step-bar {
+  position: absolute; bottom: 0; left: 0;
+  height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  transition: width 0.4s ease;
+}
+.step:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+.step:last-child  { border-radius: 0 0 var(--radius) var(--radius); }
+.step:only-child  { border-radius: var(--radius); }
+
+.step-num {
+  font-family: var(--font-m); font-size: 0.7rem; font-weight: 600;
+  color: var(--cyan);
+  width: 2.2rem; height: 2.2rem; border-radius: 6px;
+  border: 1px solid rgba(0,212,255,0.3);
+  background: rgba(0,212,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 0.1rem;
+  font-variant-numeric: tabular-nums;
+  transition: all 0.2s;
+}
+.step:hover .step-num {
+  background: rgba(0,212,255,0.18);
+  border-color: var(--cyan);
+  box-shadow: 0 0 12px rgba(0,212,255,0.3);
+}
+.step-content h4 {
+  font-family: var(--font-d); font-size: 0.9rem; font-weight: 600;
+  margin-bottom: 0.25rem; color: var(--fg);
+}
+.step-content p { font-size: 0.84rem; color: var(--fg2); }
+.step-content code {
+  font-family: var(--font-m); font-size: 0.75rem;
+  background: rgba(0,212,255,0.1); color: var(--cyan);
+  padding: 1px 6px; border-radius: 4px;
+  border: 1px solid rgba(0,212,255,0.2);
+}
+.step-content strong { color: var(--fg); font-weight: 600; }
+
+/* ═══ TIP CARDS ═══ */
+.tips-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1px; margin-bottom: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+.tip-card {
+  background: var(--surface);
+  padding: 1.1rem 1.25rem;
+  position: relative; overflow: hidden;
+  transition: background 0.2s;
+}
+.tip-card::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  opacity: 0; transition: opacity 0.2s;
+}
+.tip-card:hover { background: var(--surface2); }
+.tip-card:hover::before { opacity: 1; }
+
+.tip-label {
+  font-family: var(--font-m); font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.pill {
+  font-size: 0.6rem; padding: 2px 8px; border-radius: 999px;
+  font-weight: 700; letter-spacing: 0.08em;
+}
+.pill-g  { background: rgba(0,255,136,0.12); color: var(--green); border: 1px solid rgba(0,255,136,0.25); }
+.pill-a  { background: rgba(255,176,32,0.12); color: var(--amber); border: 1px solid rgba(255,176,32,0.25); }
+.pill-r  { background: rgba(255,51,102,0.12); color: var(--red);   border: 1px solid rgba(255,51,102,0.25); }
+.pill-c  { background: rgba(0,212,255,0.12);  color: var(--cyan);  border: 1px solid rgba(0,212,255,0.25); }
+
+.tip-card h4 {
+  font-family: var(--font-d); font-size: 0.9rem; font-weight: 600;
+  margin-bottom: 0.4rem; color: var(--fg);
+}
+.tip-card p { font-size: 0.82rem; color: var(--fg2); line-height: 1.55; }
+
+/* ═══ CALLOUT ═══ */
+.callout {
+  background: rgba(255,176,32,0.06);
+  border: 1px solid rgba(255,176,32,0.2);
+  border-left: 3px solid var(--amber);
+  border-radius: var(--radius); padding: 0.9rem 1.1rem;
+  font-size: 0.85rem; color: var(--fg2); margin-bottom: 1.5rem;
+  display: flex; gap: 0.7rem; align-items: flex-start;
+}
+.callout-icon { flex-shrink: 0; color: var(--amber); margin-top: 1px; }
+.callout strong { color: var(--fg); font-weight: 600; }
+
+/* ═══ TABLE ═══ */
+.table-wrap {
+  overflow-x: auto; border: 1px solid var(--border);
+  border-radius: var(--radius); margin-bottom: 2rem;
+}
+.sensor-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+.sensor-table th {
+  font-family: var(--font-m); font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cyan); text-align: left;
+  padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--border2);
+  background: rgba(0,212,255,0.04);
+}
+.sensor-table td {
+  padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--border);
+  color: var(--fg2);
+}
+.sensor-table tr:last-child td { border-bottom: none; }
+.sensor-table tbody tr { transition: background 0.15s; }
+.sensor-table tbody tr:hover { background: rgba(0,212,255,0.04); }
+.temp-ok   { color: var(--green) !important; font-weight: 600; font-family: var(--font-m); font-size: 0.8rem; }
+.temp-warn { color: var(--amber) !important; font-weight: 600; font-family: var(--font-m); font-size: 0.8rem; }
+.temp-hot  { color: var(--red)   !important; font-weight: 600; font-family: var(--font-m); font-size: 0.8rem; }
+
+/* ═══ STAT ROW ═══ */
+.stat-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1px; margin-bottom: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+.stat {
+  background: var(--surface);
+  padding: 1.1rem 1rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.stat::after {
+  content: "";
+  position: absolute; bottom: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: var(--cyan);
+  transform: scaleX(0); transition: transform 0.4s;
+}
+.stat:hover::after { transform: scaleX(1); }
+.stat-val {
+  font-family: var(--font-m); font-size: 1.6rem; font-weight: 600;
+  font-variant-numeric: tabular-nums; color: var(--cyan);
+  line-height: 1; margin-bottom: 0.3rem;
+  animation: countUp 2s ease-out;
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.stat-label { font-family: var(--font-m); font-size: 0.65rem; color: var(--fg3); letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ═══ MODES CARDS (HP Command Center) ═══ */
+.mode-cards {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px; margin-bottom: 2rem;
+  border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+}
+.mode-card {
+  padding: 1.25rem 1.1rem;
+  background: var(--surface);
+  position: relative; overflow: hidden;
+  transition: background 0.2s;
+}
+.mode-card:hover { background: var(--surface2); }
+.mode-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+.mode-name {
+  font-family: var(--font-d); font-size: 0.95rem; font-weight: 700;
+}
+.mode-badge {
+  font-family: var(--font-m); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 999px;
+}
+.mode-card p { font-size: 0.82rem; color: var(--fg2); line-height: 1.5; }
+.mode-card.comfort  .mode-name  { color: var(--green); }
+.mode-card.comfort  .mode-badge { background: rgba(0,255,136,0.1); color: var(--green); border: 1px solid rgba(0,255,136,0.25); }
+.mode-card.default  .mode-name  { color: var(--amber); }
+.mode-card.default  .mode-badge { background: rgba(255,176,32,0.1); color: var(--amber); border: 1px solid rgba(255,176,32,0.25); }
+.mode-card.performance .mode-name  { color: var(--cyan); }
+.mode-card.performance { border-top: 2px solid var(--cyan); }
+.mode-card.performance .mode-badge { background: rgba(0,212,255,0.12); color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); animation: badgePulse 2s ease-in-out infinite; }
+.mode-card.performance::after {
+  content: "";
+  position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+  background: radial-gradient(ellipse at top, rgba(0,212,255,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ═══ ANIMATED METER (temp indicator) ═══ */
+.meter-row { display: flex; align-items: center; gap: 0.75rem; margin: 0.3rem 0; }
+.meter-label { font-family: var(--font-m); font-size: 0.72rem; color: var(--fg3); min-width: 60px; }
+.meter-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; }
+.meter-fill { height: 100%; border-radius: 999px; animation: meterIn 1.2s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes meterIn { from { width: 0; } }
+.meter-ok   { background: linear-gradient(90deg, var(--green), rgba(0,255,136,0.5)); }
+.meter-warn { background: linear-gradient(90deg, var(--amber), rgba(255,176,32,0.5)); }
+.meter-hot  { background: linear-gradient(90deg, var(--red),   rgba(255,51,102,0.5)); }
+.meter-val  { font-family: var(--font-m); font-size: 0.7rem; min-width: 40px; text-align: right; }
+
+/* ═══ CORNER DECORATION ═══ */
+.corner-deco {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.corner-deco::before,
+.corner-deco::after {
+  content: "";
+  position: absolute;
+  width: 12px; height: 12px;
+}
+.corner-deco::before {
+  top: -1px; left: -1px;
+  border-top: 2px solid var(--cyan);
+  border-left: 2px solid var(--cyan);
+}
+.corner-deco::after {
+  bottom: -1px; right: -1px;
+  border-bottom: 2px solid var(--orange);
+  border-right: 2px solid var(--orange);
+}
+
+/* ═══ SCAN LINE (subtle aesthetic) ═══ */
+.scan-overlay {
+  position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.015) 2px,
+    rgba(0,0,0,0.015) 4px
+  );
+  animation: scanMove 8s linear infinite;
+}
+@keyframes scanMove {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 100px; }
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 600px) {
+  .tips-grid { grid-template-columns: 1fr; }
+  .mode-cards { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .tool-nav { gap: 0.3rem; }
+  .tool-btn { font-size: 0.65rem; padding: 0.45rem 0.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div class="scan-overlay" aria-hidden="true"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <span class="badge">
+      <span class="badge-dot"></span>
+      PC Gaming · Optimization Guide
+    </span>
+  </div>
+  <h1>Guía Gamer PC</h1>
+  <p class="header-sub">Configuración paso a paso de las cinco herramientas esenciales para maximizar el rendimiento de tu HP Victus y cualquier PC gaming con Windows 11.</p>
+</div>
+
+<!-- NAV -->
+<nav class="tool-nav" aria-label="Herramientas">
+  <button class="tool-btn active" onclick="showTool('gfe',this)">
+    <span class="btn-icon">◈</span> GeForce Exp.
+  </button>
+  <button class="tool-btn" onclick="showTool('msi',this)">
+    <span class="btn-icon">◈</span> MSI Afterburner
+  </button>
+  <button class="tool-btn" onclick="showTool('hwi',this)">
+    <span class="btn-icon">◈</span> HWiNFO64
+  </button>
+  <button class="tool-btn" onclick="showTool('hpcc',this)">
+    <span class="btn-icon">◈</span> HP Command Center
+  </button>
+  <button class="tool-btn" onclick="showTool('omen',this)">
+    <span class="btn-icon">◈</span> OMEN Gaming Hub
+  </button>
+</nav>
+
+<!-- ═══ GeForce Experience ═══ -->
+<section class="tool-panel active" id="panel-gfe">
+  <div class="eyebrow">NVIDIA · Drivers + Optimización automática</div>
+  <h2 class="tool-title"><span>GeForce</span> Experience</h2>
+  <p class="tool-desc">Mantiene los drivers de NVIDIA al día y ajusta automáticamente cada juego al equilibrio ideal FPS/calidad para tu GPU.</p>
+
+  <a href="https://www.nvidia.com/es-es/geforce/geforce-experience/" target="_blank" rel="noopener" class="dl-btn">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+    Descargar — NVIDIA.com
+  </a>
+
+  <div class="eyebrow">Instalación y configuración</div>
+  <div class="steps corner-deco">
+    <div class="step"><div class="step-num">01</div><div class="step-content"><h4>Descarga e instala</h4><p>Descarga desde nvidia.com. Requiere una <strong>cuenta NVIDIA gratuita</strong> para activarse la primera vez.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-content"><h4>Actualiza los drivers</h4><p>Pestaña <code>Drivers</code> → <strong>Buscar actualizaciones</strong> → Instalación Express. Reinicia al terminar.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-content"><h4>Escanea tus juegos</h4><p>Pestaña <code>Inicio</code> → GeForce Experience detecta automáticamente todos los juegos instalados.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-content"><h4>Optimiza cada juego</h4><p>Clic en un juego → botón <strong>Optimizar</strong>. Ajusta resolución, calidad de texturas y efectos al máximo FPS estable.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">05</div><div class="step-content"><h4>Activa el overlay</h4><p>Configuración → <code>Ajustes generales</code> → activa <strong>Superposición dentro del juego</strong>. <code>Alt+Z</code> para abrirlo en partida.</p></div><div class="step-bar"></div></div>
+  </div>
+
+  <div class="eyebrow">Panel de Control NVIDIA — ajustes clave</div>
+  <div class="tips-grid">
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-g">Rendimiento</span></div><h4>Gestión de energía</h4><p>Administrar config. 3D → <strong>Preferir rendimiento máximo</strong>. La GPU nunca bajará de frecuencia.</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-g">FPS</span></div><h4>V-Sync global OFF</h4><p>Administrar config. 3D → V-Sync → <strong>Desactivado</strong>. Usa el V-Sync del juego si lo necesitas.</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-a">Calidad/FPS</span></div><h4>DLSS + Reflex</h4><p>En juegos compatibles, activa <strong>DLSS Quality</strong> para más FPS, y <strong>Reflex</strong> para reducir latencia de entrada.</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-c">Latencia</span></div><h4>Low Latency Ultra</h4><p>Modo de latencia baja → <strong>Ultra</strong>. Crítico en shooters y juegos competitivos online.</p></div>
+  </div>
+</section>
+
+<!-- ═══ MSI Afterburner ═══ -->
+<section class="tool-panel" id="panel-msi">
+  <div class="eyebrow">GPU · Control total de rendimiento</div>
+  <h2 class="tool-title">MSI <span>Afterburner</span></h2>
+  <p class="tool-desc">El estándar del sector para overclocking y monitorización de GPU. Funciona con NVIDIA, AMD e Intel. Gratis y muy potente.</p>
+
+  <a href="https://www.msi.com/Landing/afterburner/graphics-cards" target="_blank" rel="noopener" class="dl-btn">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+    Descargar — MSI.com
+  </a>
+
+  <div class="callout">
+    <span class="callout-icon"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></span>
+    <div><strong>Instala también RivaTuner Statistics Server (RTSS)</strong> — incluido en el instalador. Imprescindible para el overlay de FPS en juego.</div>
+  </div>
+
+  <div class="eyebrow">Configuración inicial</div>
+  <div class="steps corner-deco">
+    <div class="step"><div class="step-num">01</div><div class="step-content"><h4>Instala Afterburner + RTSS</h4><p>Al instalar, deja marcada la opción de RivaTuner. Ambos deben aparecer en la bandeja del sistema.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-content"><h4>Configura el overlay</h4><p>Engranaje → pestaña <code>Monitorización</code> → marca las métricas → activa <strong>Mostrar en pantalla</strong> para cada una.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-content"><h4>Curva de ventilador personalizada</h4><p>Icono ventilador → activa <strong>Velocidad definida por el usuario</strong> → dibuja curva agresiva a partir de 75 °C.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-content"><h4>Power Limit al máximo</h4><p>Desliza <strong>Power Limit</strong> al 100% o más. La GPU deja de limitarse por consumo y libera toda su potencia.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">05</div><div class="step-content"><h4>Guarda el perfil</h4><p>Icono 💾 → slot 1–5. Crea perfiles distintos para gaming, trabajo y silencioso, cámbialos al instante.</p></div><div class="step-bar"></div></div>
+  </div>
+
+  <div class="eyebrow">Métricas esenciales para el overlay</div>
+  <div class="tips-grid">
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-g">Esencial</span></div><h4>FPS + Frametime</h4><p>Los FPS muestran el rendimiento general. El frametime detecta microtartamudeos que el contador de FPS enmascara.</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-g">Esencial</span></div><h4>Temperatura GPU</h4><p>Objetivo: por debajo de 85 °C. Si sube más, ajusta la curva de ventilador o limpia el portátil de polvo.</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-a">Útil</span></div><h4>GPU Usage %</h4><p>Al 99% es perfecto — la GPU trabaja al límite. Al 50–70%, el cuello de botella está en la CPU.</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-a">Útil</span></div><h4>CPU Usage + Temp</h4><p>Uso alto en un núcleo específico = el juego depende de él. Temperatura CPU &gt; 90 °C = señal de alerta.</p></div>
+  </div>
+</section>
+
+<!-- ═══ HWiNFO64 ═══ -->
+<section class="tool-panel" id="panel-hwi">
+  <div class="eyebrow">Sistema · Monitorización avanzada</div>
+  <h2 class="tool-title">HW<span>iNFO</span>64</h2>
+  <p class="tool-desc">La herramienta más completa para ver temperatura, voltaje, frecuencia y salud de cada componente del sistema en tiempo real.</p>
+
+  <a href="https://www.hwinfo.com/download/" target="_blank" rel="noopener" class="dl-btn">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+    Descargar — HWiNFO.com
+  </a>
+
+  <div class="eyebrow">Puesta en marcha</div>
+  <div class="steps corner-deco">
+    <div class="step"><div class="step-num">01</div><div class="step-content"><h4>Lanza en modo Sensors only</h4><p>Al abrir, marca <strong>Sensors only</strong> → Iniciar. Verás todos los sensores del sistema directamente.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-content"><h4>Localiza los sensores clave</h4><p>Busca las secciones CPU, GPU y el controlador de placa. Muestra valor actual, mínimo y máximo desde el inicio.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-content"><h4>Añade sensores a la bandeja</h4><p>Clic derecho sobre cualquier sensor → <strong>Add to Tray</strong> para verlo siempre visible en la barra del sistema.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-content"><h4>Integra con MSI Afterburner</h4><p>Afterburner → Configuración → Monitorización → activa <strong>HWiNFO shared memory</strong>. Todos los sensores en el overlay del juego.</p></div><div class="step-bar"></div></div>
+  </div>
+
+  <div class="eyebrow">Temperaturas de referencia — portátil gaming</div>
+  <div class="table-wrap">
+    <table class="sensor-table">
+      <thead><tr><th>Componente</th><th>Normal</th><th>Atención</th><th>Peligro</th><th>Acción</th></tr></thead>
+      <tbody>
+        <tr><td>CPU en juego</td><td class="temp-ok">70–80 °C</td><td class="temp-warn">80–90 °C</td><td class="temp-hot">&gt;95 °C</td><td>Revisar pasta térmica</td></tr>
+        <tr><td>GPU en juego</td><td class="temp-ok">65–80 °C</td><td class="temp-warn">80–87 °C</td><td class="temp-hot">&gt;90 °C</td><td>Curva ventilador / undervolting</td></tr>
+        <tr><td>SSD NVMe</td><td class="temp-ok">40–55 °C</td><td class="temp-warn">55–65 °C</td><td class="temp-hot">&gt;70 °C</td><td>Mejorar airflow</td></tr>
+        <tr><td>RAM</td><td class="temp-ok">&lt;45 °C</td><td class="temp-warn">45–55 °C</td><td class="temp-hot">&gt;60 °C</td><td>Revisar ventilación</td></tr>
+        <tr><td>VRM / Placa</td><td class="temp-ok">&lt;70 °C</td><td class="temp-warn">70–85 °C</td><td class="temp-hot">&gt;90 °C</td><td>Base refrigerante</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="eyebrow">Indicadores de temperatura — referencia visual</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:2rem;" class="corner-deco">
+    <div style="font-family:var(--font-m);font-size:0.65rem;color:var(--fg3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">CPU · en juego</div>
+    <div class="meter-row"><span class="meter-label">Normal</span><div class="meter-bar"><div class="meter-fill meter-ok" style="width:75%"></div></div><span class="meter-val temp-ok">75°C</span></div>
+    <div class="meter-row"><span class="meter-label">Atención</span><div class="meter-bar"><div class="meter-fill meter-warn" style="width:88%"></div></div><span class="meter-val temp-warn">88°C</span></div>
+    <div class="meter-row"><span class="meter-label">Peligro</span><div class="meter-bar"><div class="meter-fill meter-hot" style="width:98%"></div></div><span class="meter-val temp-hot">98°C</span></div>
+    <div style="font-family:var(--font-m);font-size:0.65rem;color:var(--fg3);letter-spacing:0.1em;text-transform:uppercase;margin:1.1rem 0 0.8rem;">GPU · en juego</div>
+    <div class="meter-row"><span class="meter-label">Normal</span><div class="meter-bar"><div class="meter-fill meter-ok" style="width:72%"></div></div><span class="meter-val temp-ok">72°C</span></div>
+    <div class="meter-row"><span class="meter-label">Atención</span><div class="meter-bar"><div class="meter-fill meter-warn" style="width:85%"></div></div><span class="meter-val temp-warn">85°C</span></div>
+    <div class="meter-row"><span class="meter-label">Peligro</span><div class="meter-bar"><div class="meter-fill meter-hot" style="width:95%"></div></div><span class="meter-val temp-hot">95°C</span></div>
+  </div>
+
+  <div class="eyebrow">Señales de alerta en partida</div>
+  <div class="tips-grid">
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-r">Crítico</span></div><h4>Thermal Throttling</h4><p>Si CPU o GPU bajan bruscamente de frecuencia, están limitando rendimiento por temperatura. HWiNFO lo muestra en "Thermal Design Power".</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-a">Importante</span></div><h4>CPU Package Power</h4><p>En Victus con Intel, valores sostenidos &gt;45W indican esfuerzo máximo. Normal en juegos pesados, vigilar si va acompañado de throttling.</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-g">Referencia</span></div><h4>GPU Core Clock</h4><p>Debe mantenerse estable cerca de su frecuencia boost. Fluctuaciones hacia abajo = throttling térmico o de energía.</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-g">Referencia</span></div><h4>Battery Discharge</h4><p>Un valor positivo (descargando) con cargador conectado = el adaptador no da suficiente potencia para el consumo del juego.</p></div>
+  </div>
+</section>
+
+<!-- ═══ HP Command Center ═══ -->
+<section class="tool-panel" id="panel-hpcc">
+  <div class="eyebrow">HP · Modos de rendimiento y temperatura</div>
+  <h2 class="tool-title">HP <span>Command Center</span></h2>
+  <p class="tool-desc">La app oficial de HP para controlar los modos de rendimiento, temperatura y ventiladores del Victus directamente desde Windows.</p>
+
+  <a href="https://apps.microsoft.com/detail/9nq4jd7wst50" target="_blank" rel="noopener" class="dl-btn">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+    Microsoft Store
+  </a>
+
+  <div class="callout">
+    <span class="callout-icon"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+    <div>Si no aparece en la Store, búscala en el <strong>menú Inicio</strong> — puede estar preinstalada como "HP System Event Utility".</div>
+  </div>
+
+  <div class="eyebrow">Los tres modos explicados</div>
+  <div class="mode-cards">
+    <div class="mode-card comfort">
+      <div class="mode-top"><span class="mode-name">Comfort</span><span class="mode-badge">Silencioso</span></div>
+      <p>Prioriza el silencio y la temperatura baja. Ventiladores lentos, CPU/GPU limitadas. Ideal para trabajo y navegación.</p>
+    </div>
+    <div class="mode-card default">
+      <div class="mode-top"><span class="mode-name">Default</span><span class="mode-badge">Equilibrado</span></div>
+      <p>Buen equilibrio entre rendimiento y ruido. Válido para juegos ligeros o uso mixto. El modo por defecto del sistema.</p>
+    </div>
+    <div class="mode-card performance">
+      <div class="mode-top"><span class="mode-name">Performance</span><span class="mode-badge">◈ Gaming</span></div>
+      <p>Sin límites de consumo en CPU y GPU. Ventiladores al máximo. Úsalo solo mientras juegas — consume más batería y genera más calor.</p>
+    </div>
+  </div>
+
+  <div class="eyebrow">Activar modo Performance — paso a paso</div>
+  <div class="steps corner-deco">
+    <div class="step"><div class="step-num">01</div><div class="step-content"><h4>Abre HP Command Center</h4><p>Búscala en el menú Inicio o descárgala desde la Microsoft Store si no está instalada.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-content"><h4>Ve a la sección Thermal</h4><p>Menú lateral → <strong>Thermal</strong> o <strong>Control de temperatura</strong>. Aquí está el selector de modos.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-content"><h4>Selecciona Performance</h4><p>Haz clic en <strong>Performance</strong>. Se activa al instante — no hace falta reiniciar.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-content"><h4>Listo</h4><p>Los ventiladores se aceleran y la CPU/GPU trabajan al máximo. Vuelve a Default al terminar de jugar para alargar la vida de la batería.</p></div><div class="step-bar"></div></div>
+  </div>
+</section>
+
+<!-- ═══ OMEN Gaming Hub ═══ -->
+<section class="tool-panel" id="panel-omen">
+  <div class="eyebrow">HP · Gaming Hub completo</div>
+  <h2 class="tool-title">OMEN <span>Gaming Hub</span></h2>
+  <p class="tool-desc">Hub gaming completo de HP. Control de rendimiento, monitorización en tiempo real y optimización de red en una sola interfaz. Disponible en algunos modelos Victus.</p>
+
+  <a href="https://apps.microsoft.com/detail/9nqdw009sg6z" target="_blank" rel="noopener" class="dl-btn">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+    Buscar en Microsoft Store
+  </a>
+
+  <div class="callout">
+    <span class="callout-icon"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></span>
+    <div><strong>OMEN Hub está diseñado para portátiles OMEN.</strong> En el Victus puede no aparecer disponible según el modelo. Si no lo encuentras, usa <strong>HP Command Center</strong>.</div>
+  </div>
+
+  <div class="eyebrow">Funciones principales</div>
+  <div class="tips-grid">
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-g">Rendimiento</span></div><h4>Modos de rendimiento</h4><p>Comfort, Default, Performance y en algunos modelos un modo <strong>Extreme</strong> adicional con más margen de consumo.</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-g">Ventiladores</span></div><h4>Control manual de fans</h4><p>Sube la velocidad manualmente sin depender del perfil automático. Baja la temperatura 5–10 °C en sesiones largas.</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-a">Red</span></div><h4>Network Booster</h4><p>Prioriza el tráfico del juego activo. Reduce picos de latencia en online cuando hay más dispositivos en la red.</p></div>
+    <div class="tip-card"><div class="tip-label"><span class="pill pill-a">Monitor</span></div><h4>Dashboard en tiempo real</h4><p>Temperatura CPU/GPU, uso de RAM, frecuencias y FPS del juego activo en un panel siempre visible.</p></div>
+  </div>
+
+  <div class="eyebrow">Configuración recomendada para gaming</div>
+  <div class="steps corner-deco">
+    <div class="step"><div class="step-num">01</div><div class="step-content"><h4>Activa Performance o Extreme</h4><p>Panel lateral → <strong>Performance Control</strong> → selecciona el modo más alto disponible antes de lanzar el juego.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-content"><h4>Fans al máximo</h4><p>Fan Control → <strong>Maximum</strong> o crea curva personalizada. Los fans al máximo bajan la temperatura 5–10 °C.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-content"><h4>Activa Network Booster</h4><p>Network → activa el booster y selecciona el juego activo para priorizar ese tráfico en el router.</p></div><div class="step-bar"></div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-content"><h4>Vigila el Dashboard</h4><p>Mantén el Hub en segundo monitor o minimizado para vigilar que la temperatura GPU no supere los 85 °C en partida.</p></div><div class="step-bar"></div></div>
+  </div>
+</section>
+
+<script>
+function showTool(id, btn) {
+  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+
+  // Re-trigger meter animations
+  document.querySelectorAll('.meter-fill').forEach(m => {
+    const w = m.style.width;
+    m.style.width = '0';
+    requestAnimationFrame(() => { m.style.width = w; });
+  });
+}
+</script>
