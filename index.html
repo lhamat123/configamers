@@ -561,6 +561,9 @@ h1,h2,h3,h4 { font-family: var(--font-d); line-height: 1.15; text-wrap: balance;
   <button class="tool-btn" onclick="showTool('omen',this)">
     <span class="btn-icon">◈</span> OMEN Gaming Hub
   </button>
+  <button class="tool-btn" onclick="showTool('req',this)">
+    <span class="btn-icon">◈</span> Requisitos & DLLs
+  </button>
 </nav>
 
 <!-- ═══ GeForce Experience ═══ -->
@@ -751,6 +754,165 @@ h1,h2,h3,h4 { font-family: var(--font-d); line-height: 1.15; text-wrap: balance;
     <div class="step"><div class="step-num">02</div><div class="step-content"><h4>Fans al máximo</h4><p>Fan Control → <strong>Maximum</strong> o crea curva personalizada. Los fans al máximo bajan la temperatura 5–10 °C.</p></div><div class="step-bar"></div></div>
     <div class="step"><div class="step-num">03</div><div class="step-content"><h4>Activa Network Booster</h4><p>Network → activa el booster y selecciona el juego activo para priorizar ese tráfico en el router.</p></div><div class="step-bar"></div></div>
     <div class="step"><div class="step-num">04</div><div class="step-content"><h4>Vigila el Dashboard</h4><p>Mantén el Hub en segundo monitor o minimizado para vigilar que la temperatura GPU no supere los 85 °C en partida.</p></div><div class="step-bar"></div></div>
+  </div>
+</section>
+
+<!-- ═══ Requisitos & DLLs ═══ -->
+<section class="tool-panel" id="panel-req">
+  <div class="eyebrow">Runtime · Plataformas · Dependencias esenciales</div>
+  <h2 class="tool-title"><span>Requisitos</span> &amp; DLLs</h2>
+  <p style="color:var(--fg2);margin-bottom:1.5rem">Antes de que un juego cargue necesita varias librerías y plataformas instaladas. Falta una sola y el juego no arranca o da error. Aquí están todas, con enlace oficial y para qué sirve cada una.</p>
+
+  <!-- PLATAFORMAS -->
+  <div class="eyebrow">Plataformas de distribución</div>
+  <div class="tips-grid" style="margin-bottom:2rem">
+    <div class="tip-card">
+      <div class="tip-label"><span class="pill pill-c">Obligatorio</span></div>
+      <h4>Steam</h4>
+      <p>La tienda y lanzador más usada en PC. Muchos juegos la requieren incluso si se compran en otro sitio.</p>
+      <a href="https://store.steampowered.com/about/" target="_blank" rel="noopener" class="dl-btn" style="margin-top:0.75rem;font-size:0.75rem;padding:0.5rem 1rem">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        Descargar Steam
+      </a>
+    </div>
+    <div class="tip-card">
+      <div class="tip-label"><span class="pill pill-a">Recomendado</span></div>
+      <h4>Epic Games Launcher</h4>
+      <p>Plataforma rival de Steam con exclusivas y juegos gratis cada semana. Algunos títulos solo se lanzan aquí.</p>
+      <a href="https://store.epicgames.com/es-ES/download" target="_blank" rel="noopener" class="dl-btn" style="margin-top:0.75rem;font-size:0.75rem;padding:0.5rem 1rem">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        Descargar Epic
+      </a>
+    </div>
+    <div class="tip-card">
+      <div class="tip-label"><span class="pill pill-a">Según juego</span></div>
+      <h4>EA App (Origin)</h4>
+      <p>Reemplazó a Origin. Necesario para cualquier juego de EA: FIFA, Battlefield, The Sims, Apex Legends.</p>
+      <a href="https://www.ea.com/es-es/ea-app" target="_blank" rel="noopener" class="dl-btn" style="margin-top:0.75rem;font-size:0.75rem;padding:0.5rem 1rem">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        Descargar EA App
+      </a>
+    </div>
+    <div class="tip-card">
+      <div class="tip-label"><span class="pill pill-a">Según juego</span></div>
+      <h4>Battle.net</h4>
+      <p>Launcher de Blizzard / Activision. Obligatorio para Warzone, Diablo IV, WoW, Overwatch 2 y Hearthstone.</p>
+      <a href="https://www.blizzard.com/es-es/apps/battle.net/desktop" target="_blank" rel="noopener" class="dl-btn" style="margin-top:0.75rem;font-size:0.75rem;padding:0.5rem 1rem">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        Descargar Battle.net
+      </a>
+    </div>
+  </div>
+
+  <!-- RUNTIME / DLLs -->
+  <div class="eyebrow">Runtimes y DLLs esenciales</div>
+  <div class="steps corner-deco" style="margin-bottom:2rem">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <h4>DirectX (DirectX End-User Runtime)</h4>
+        <p>La base de los gráficos en Windows. Incluye las DLLs <code style="font-family:var(--font-m);font-size:0.8em;color:var(--cyan)">d3dx9_xx.dll</code>, <code style="font-family:var(--font-m);font-size:0.8em;color:var(--cyan)">d3dx10_xx.dll</code>, etc. Muchos juegos las usan aunque Windows 11 ya tenga DirectX 12 integrado. <a href="https://www.microsoft.com/es-es/download/details.aspx?id=35" target="_blank" rel="noopener" style="color:var(--cyan)">Descargar desde Microsoft →</a></p>
+      </div>
+      <div class="step-bar"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <h4>Visual C++ Redistributables (todos los años)</h4>
+        <p>Las librerías más olvidadas. Un juego puede fallar con <code style="font-family:var(--font-m);font-size:0.8em;color:var(--orange)">VCRUNTIME140.dll not found</code> o <code style="font-family:var(--font-m);font-size:0.8em;color:var(--orange)">MSVCP140.dll</code>. Instala el paquete "all-in-one" que incluye 2005–2022 de una vez. <a href="https://github.com/abbodi1406/vcredist/releases" target="_blank" rel="noopener" style="color:var(--cyan)">Paquete all-in-one →</a></p>
+      </div>
+      <div class="step-bar"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <h4>.NET Framework y .NET Runtime</h4>
+        <p>Muchos juegos indie y herramientas (como RivaTuner, MSI Afterburner) requieren .NET 4.8 o .NET 6/7/8. Windows Update suele instalarlo, pero si falta recibirás el error <code style="font-family:var(--font-m);font-size:0.8em;color:var(--orange)">.NET Framework not installed</code>. <a href="https://dotnet.microsoft.com/es-es/download" target="_blank" rel="noopener" style="color:var(--cyan)">Descargar .NET →</a></p>
+      </div>
+      <div class="step-bar"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <h4>Java Runtime (JRE / JDK)</h4>
+        <p>Imprescindible para Minecraft Java Edition y servidores de mods. No viene con Windows. Error típico: <code style="font-family:var(--font-m);font-size:0.8em;color:var(--orange)">'java' is not recognized</code>. Instala <strong>Adoptium Temurin</strong> (versión LTS gratuita). <a href="https://adoptium.net/es/" target="_blank" rel="noopener" style="color:var(--cyan)">Descargar Adoptium →</a></p>
+      </div>
+      <div class="step-bar"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <h4>XNA Framework (juegos antiguos / indies)</h4>
+        <p>Muchos juegos indie de Xbox y Steam como Stardew Valley beta, Terraria antiguo y otros lo requieren. DLL típica: <code style="font-family:var(--font-m);font-size:0.8em;color:var(--cyan)">Microsoft.Xna.Framework.dll</code>. <a href="https://www.microsoft.com/es-es/download/details.aspx?id=27598" target="_blank" rel="noopener" style="color:var(--cyan)">Descargar XNA 4.0 →</a></p>
+      </div>
+      <div class="step-bar"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">06</div>
+      <div class="step-content">
+        <h4>OpenAL / OpenAL Soft (audio en juegos)</h4>
+        <p>Motor de audio 3D usado en muchos FPS y RPG. Error sin él: el juego arranca sin sonido o cuelga al cargar audio. <code style="font-family:var(--font-m);font-size:0.8em;color:var(--cyan)">OpenAL32.dll</code>. <a href="https://www.openal.org/downloads/" target="_blank" rel="noopener" style="color:var(--cyan)">Descargar OpenAL →</a></p>
+      </div>
+      <div class="step-bar"></div>
+    </div>
+  </div>
+
+  <!-- TABLA RÁPIDA DE ERRORES -->
+  <div class="eyebrow">Errores comunes → solución rápida</div>
+  <div class="corner-deco" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:0.82rem">
+        <thead>
+          <tr style="background:var(--surface2);border-bottom:1px solid var(--border2)">
+            <th style="padding:0.75rem 1rem;text-align:left;font-family:var(--font-m);font-size:0.68rem;letter-spacing:.08em;color:var(--fg3)">ERROR .DLL / MENSAJE</th>
+            <th style="padding:0.75rem 1rem;text-align:left;font-family:var(--font-m);font-size:0.68rem;letter-spacing:.08em;color:var(--fg3)">CAUSA</th>
+            <th style="padding:0.75rem 1rem;text-align:left;font-family:var(--font-m);font-size:0.68rem;letter-spacing:.08em;color:var(--fg3)">FIX</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:0.65rem 1rem;font-family:var(--font-m);color:var(--red);font-size:0.78rem">VCRUNTIME140.dll</td>
+            <td style="padding:0.65rem 1rem;color:var(--fg2)">Visual C++ no instalado</td>
+            <td style="padding:0.65rem 1rem;color:var(--cyan)">VC++ all-in-one</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:0.65rem 1rem;font-family:var(--font-m);color:var(--red);font-size:0.78rem">MSVCP140.dll</td>
+            <td style="padding:0.65rem 1rem;color:var(--fg2)">Visual C++ no instalado</td>
+            <td style="padding:0.65rem 1rem;color:var(--cyan)">VC++ all-in-one</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:0.65rem 1rem;font-family:var(--font-m);color:var(--red);font-size:0.78rem">d3dx9_43.dll</td>
+            <td style="padding:0.65rem 1rem;color:var(--fg2)">DirectX legacy no instalado</td>
+            <td style="padding:0.65rem 1rem;color:var(--cyan)">DirectX End-User Runtime</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:0.65rem 1rem;font-family:var(--font-m);color:var(--red);font-size:0.78rem">'java' not recognized</td>
+            <td style="padding:0.65rem 1rem;color:var(--fg2)">Java no instalado / no en PATH</td>
+            <td style="padding:0.65rem 1rem;color:var(--cyan)">Adoptium Temurin JRE</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:0.65rem 1rem;font-family:var(--font-m);color:var(--red);font-size:0.78rem">OpenAL32.dll</td>
+            <td style="padding:0.65rem 1rem;color:var(--fg2)">Motor de audio no instalado</td>
+            <td style="padding:0.65rem 1rem;color:var(--cyan)">OpenAL / OpenAL Soft</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:0.65rem 1rem;font-family:var(--font-m);color:var(--red);font-size:0.78rem">.NET not installed</td>
+            <td style="padding:0.65rem 1rem;color:var(--fg2)">Framework .NET faltante</td>
+            <td style="padding:0.65rem 1rem;color:var(--cyan)">dotnet.microsoft.com</td>
+          </tr>
+          <tr>
+            <td style="padding:0.65rem 1rem;font-family:var(--font-m);color:var(--red);font-size:0.78rem">0xc000007b</td>
+            <td style="padding:0.65rem 1rem;color:var(--fg2)">DLL 32/64 bit mezcladas</td>
+            <td style="padding:0.65rem 1rem;color:var(--cyan)">Reinstalar VC++ x86 + x64</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:1.5rem">
+    <span class="callout-icon"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+    <div><strong>Consejo:</strong> Nunca descargues DLLs sueltas de páginas como "dll-files.com". Instala siempre el runtime oficial completo desde los links de arriba — las DLLs sueltas de terceros suelen contener malware.</div>
   </div>
 </section>
 
